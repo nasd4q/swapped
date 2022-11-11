@@ -1,15 +1,16 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 30
+    compileSdkVersion 31
     buildToolsVersion "30.0.2"
 
     defaultConfig {
         applicationId "com.nasd4q.swapped"
         minSdkVersion 21
-        targetSdkVersion 30
+        targetSdkVersion 31
         versionCode 1
         versionName "1.0"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
@@ -23,5 +24,14 @@ android {
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'androidx.test:monitor:1.5.0'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     testImplementation 'junit:junit:4.12'
+    implementation 'com.google.android.gms:play-services-vision:12.0.1'
+    testImplementation project(path: ':app')
+    testImplementation 'androidx.test.ext:junit:1.1.0'
+    androidTestImplementation project(path: ':app')
+    testImplementation 'org.mockito:mockito-core:1.10.19'
+    androidTestImplementation "androidx.test:runner:1.5.0"
+    androidTestImplementation "androidx.test:rules:1.5.0"
 }

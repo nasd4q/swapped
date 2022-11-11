@@ -89,55 +89,7 @@ public class ScreenCaptureService extends Service {
     private class ImageAvailableListener implements ImageReader.OnImageAvailableListener {
         @Override
         public void onImageAvailable(ImageReader reader) {
-            Log.d("AZE", "onImageAvailable");
-
-            if (newImageWanted) {
-                Log.d("AZE", "onImageAvailable, newImageWanted true");
-
-                FileOutputStream fos = null;
-                Bitmap bitmap = null;
-                try (Image image = mImageReader.acquireLatestImage()) {
-                    if (image != null) {
-                        Log.d("AZE", "onImageAvailable, saving image");
-
-                        Image.Plane[] planes = image.getPlanes();
-                        ByteBuffer buffer = planes[0].getBuffer();
-                        int pixelStride = planes[0].getPixelStride();
-                        int rowStride = planes[0].getRowStride();
-                        int rowPadding = rowStride - pixelStride * mWidth;
-
-                        // create bitmap
-                        bitmap = Bitmap.createBitmap(mWidth + rowPadding / pixelStride, mHeight, Bitmap.Config.ARGB_8888);
-                        bitmap.copyPixelsFromBuffer(buffer);
-
-                        // write bitmap to a file
-                        fos = new FileOutputStream(mStoreDir + "/myscreen_" + IMAGES_PRODUCED + ".png");
-                        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
-
-                        IMAGES_PRODUCED++;
-                        Log.d("AZE", "captured image: " + IMAGES_PRODUCED);
-                        Toast.makeText(ScreenCaptureService.this, "hm mm", Toast.LENGTH_SHORT).show();
-                    }
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                } finally {
-                    newImageWanted = false;
-                    if (fos != null) {
-                        try {
-                            fos.close();
-                        } catch (IOException ioe) {
-                            ioe.printStackTrace();
-                        }
-                    }
-
-                    if (bitmap != null) {
-                        bitmap.recycle();
-                    }
-
-
-                }
-            }
+            Log.d("AZE", "onImageAvailable (ImageAvailableListener)");
         }
     }
 

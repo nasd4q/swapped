@@ -64,13 +64,17 @@ public class CustomApplication extends Application {
                 bitmap = Bitmap.createBitmap(mWidth + rowPadding / pixelStride, mHeight, Bitmap.Config.ARGB_8888);
                 bitmap.copyPixelsFromBuffer(buffer);
 
+                TextExtractor textExtractor = new TextExtractor(this);
+                String targa = textExtractor.extractTarga(textExtractor.extractText(bitmap));
+
                 // write bitmap to a file
-                fos = new FileOutputStream(storeDir + "/myscreen_" + IMAGES_PRODUCED + ".png");
+                /*fos = new FileOutputStream(storeDir + "/myscreen_" + IMAGES_PRODUCED + ".png");
                 bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
 
                 IMAGES_PRODUCED++;
-                Log.d("AZE", "captured image: " + IMAGES_PRODUCED + " to " + storeDir);
-                Toast.makeText(this, "hm mm", Toast.LENGTH_SHORT).show();
+                Log.d("AZE", "captured image: " + IMAGES_PRODUCED + " to " + storeDir);*/
+
+                Toast.makeText(this, targa == null ? "nada" : targa, Toast.LENGTH_SHORT).show();
             }
 
         } catch (Exception e) {
